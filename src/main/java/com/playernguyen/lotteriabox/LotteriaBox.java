@@ -9,4 +9,6 @@ public class LotteriaBox extends JavaPlugin {
     public void onEnable() {
 
     }
+
+
 }
