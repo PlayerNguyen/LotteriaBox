@@ -13,6 +13,6 @@ public interface ChestObject {
 
     void rotation();
 
-    List<ItemStack> getRandomStackList();
+    List<ItemStack> getRandomItemList();
 
 }
