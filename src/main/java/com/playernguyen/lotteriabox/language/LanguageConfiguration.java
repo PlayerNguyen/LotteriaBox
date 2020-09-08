@@ -1,4 +1,4 @@
-package com.playernguyen.lotteriabox.configuration.language;
+package com.playernguyen.lotteriabox.language;
 
 import com.playernguyen.lotteriabox.configuration.Yamlist;
 import org.bukkit.ChatColor;

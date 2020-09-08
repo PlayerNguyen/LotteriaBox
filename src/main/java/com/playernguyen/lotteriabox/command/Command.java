@@ -12,7 +12,7 @@ public interface Command {
 
     String getDescription();
 
-    String[] getAlias();
+    List<String> getAlias();
 
     String getPrimaryPermission();
 

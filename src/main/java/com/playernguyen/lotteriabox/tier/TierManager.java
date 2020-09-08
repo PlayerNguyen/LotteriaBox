@@ -20,6 +20,7 @@ public class TierManager extends ManagerSet<TierObject> {
     }
 
     public TierObject getById(String id) {
-        return getContainer().stream().filter(e -> e.getId().equalsIgnoreCase(id)).findAny().orElse(null);
+        return getContainer().stream().filter(e -> e.getId()
+                .toLowerCase().equalsIgnoreCase(id)).findAny().orElse(null);
     }
 }

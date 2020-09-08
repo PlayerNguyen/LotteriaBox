@@ -1,9 +1,8 @@
 package com.playernguyen.lotteriabox.configuration;
 
-import com.playernguyen.lotteriabox.itemstack.ConfigurableItemStack;
+import com.playernguyen.lotteriabox.LotteriaBoxImplement;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
@@ -13,7 +12,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Yamlist<T extends Flagable> {
+public abstract class Yamlist<T extends Flagable> extends LotteriaBoxImplement {
 
     protected final File file;
     protected final FileConfiguration fileConfiguration;
@@ -22,9 +21,10 @@ public abstract class Yamlist<T extends Flagable> {
         this(plugin, name, flags, b, "");
     }
 
-    public Yamlist(Plugin plugin, File file, T[] flags) {
-        this(plugin, file.getName(), flags, true);
+    public Yamlist(Plugin plugin, String name, T[] flags) {
+        this(plugin, name, flags, true);
     }
+
 
     public Yamlist(Plugin plugin, String name, T[] flags, boolean save, String parent) {
         File _parent = plugin.getDataFolder();
@@ -114,4 +114,5 @@ public abstract class Yamlist<T extends Flagable> {
     public List<?> getList(T flag) {
         return (List<?>) get(flag);
     }
+
 }

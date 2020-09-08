@@ -1,7 +1,7 @@
 package com.playernguyen.lotteriabox.command;
 
 import com.playernguyen.lotteriabox.LotteriaBoxImplement;
-import com.playernguyen.lotteriabox.configuration.language.LanguageFlag;
+import com.playernguyen.lotteriabox.language.LanguageFlag;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -17,12 +17,12 @@ public abstract class HubCommandAbstract extends LotteriaBoxImplement
     private final String description;
 
     private final List<String> permissions;
+    private final List<String> alias;
 
-    private final String[] alias;
+    private final SubCommandManager subCommandManager = new SubCommandManager();
 
-    private final List<com.playernguyen.lotteriabox.command.Command> subCommand = new ArrayList<>();
 
-    public HubCommandAbstract(String command, String argument, String description, String permission, String[] alias) {
+    public HubCommandAbstract(String command, String argument, String description, String permission, List<String> alias) {
         this.command = command;
         this.argument = argument;
         this.description = description;
@@ -54,7 +54,7 @@ public abstract class HubCommandAbstract extends LotteriaBoxImplement
         return permissions;
     }
 
-    public String[] getAlias() {
+    public List<String> getAlias() {
         return alias;
     }
 
@@ -84,19 +84,24 @@ public abstract class HubCommandAbstract extends LotteriaBoxImplement
                         .getLanguagePrefix(LanguageFlag.COMMAND_NOT_PERMISSION));
                 break;
             }
-            default: {
+            case INVALID_SENDER: {
+                commandSender.sendMessage(getLanguageConfiguration()
+                        .getLanguagePrefix(LanguageFlag.COMMAND_INVALID_SENDER));
+                break;
+            }
+            case NULL: case NOTHING: {
                 break;
             }
         }
         return true;
     }
 
-    public List<com.playernguyen.lotteriabox.command.Command> getSubCommandList() {
-        return subCommand;
+    public SubCommandManager getSubCommandManager() {
+        return subCommandManager;
     }
 
-    public void addSubCommand(com.playernguyen.lotteriabox.command.Command command) {
-        getSubCommandList().add(command);
+    public void addSubCommand(SubCommand command) {
+        getSubCommandManager().add(command);
     }
 
     @Override

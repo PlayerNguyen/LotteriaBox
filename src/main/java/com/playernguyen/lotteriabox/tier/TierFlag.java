@@ -7,10 +7,10 @@ import java.util.Arrays;
 public enum  TierFlag implements Flagable {
 
     ID("Id", "default"),
-    NAME("Name", "&6Example name"),
+    NAME("Name", "&cDefault Tier"),
     ITEM_LIST("ItemList", Arrays.asList(
-            "Bukkit:WOODEN_PICKAXE:1",
-            "Weaponist:Gun:ak_47"
+            "15.0:Bukkit:WOOD_AXE:1",
+            "3.0:Weaponist:Gun:ak_47"
     ));
 
 

@@ -1,5 +1,7 @@
 package com.playernguyen.lotteriabox.command;
 
+import com.playernguyen.lotteriabox.command.setter.SubCommandSetter;
+import com.playernguyen.lotteriabox.command.tierlist.SubCommandTierList;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -14,7 +16,8 @@ public class LotteriaCommand extends HubCommandAbstract {
         super("lotteriabox", "<command>", "Command of LotteriaBox plugin",
                 "lotteriabox.command", null);
         // Add sub command here
-
+        addSubCommand(new SubCommandSetter());
+        addSubCommand(new SubCommandTierList());
     }
 
     @Override
@@ -26,25 +29,22 @@ public class LotteriaCommand extends HubCommandAbstract {
                     String.format("&6/%s &5%s&7: %s",
                             getCommand(), getArgument(), getDescription())
             ));
+            sender.sendMessage(ChatColor.DARK_GRAY + "--------------------");
             // Send arguments
-            getSubCommandList().forEach(e -> {
+            getSubCommandManager().forEach(e -> {
                 // If has permission, send the command
                 if (e.hasPermissions(sender)) {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            String.format("&7[+]---&c%s %s&7:%s",
-                                    e.getCommand(), e.getArgument(), e.getDescription())
+                            String.format("&7[+]---&c%s %s&7: %s",
+                                    e.toSlashes(), e.getArgument(), e.getDescription())
                     ));
                 }
             });
+            sender.sendMessage(ChatColor.DARK_GRAY + "--------------------");
             return CommandResultEnum.MISSING_ARGUMENT;
         }
         // Get command
-        Command command =
-                getSubCommandList()
-                        .stream()
-                        .filter(e -> e.getCommand().equalsIgnoreCase(args.get(0)))
-                        .findAny()
-                        .orElse(null);
+        Command command = getSubCommandManager().findCommand(args.get(0));
         if (command == null) {
             return CommandResultEnum.COMMAND_NOT_FOUND;
         }
@@ -57,7 +57,7 @@ public class LotteriaCommand extends HubCommandAbstract {
     @Override
     public List<String> onTab(CommandSender sender, List<String> args) {
         if (args.size() == 1) {
-            List<Command> collect = getSubCommandList()
+            List<Command> collect = getSubCommandManager()
                     .stream()
                     .filter(e -> e.hasPermissions(sender))
                     .collect(Collectors.toList());
