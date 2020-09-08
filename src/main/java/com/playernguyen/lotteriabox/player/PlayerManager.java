@@ -19,5 +19,18 @@ public class PlayerManager extends ManagerSet<LotteriaBoxPlayer> {
         return lotteriaBoxPlayer;
     }
 
+    public LotteriaBoxPlayer getByPlayer(Player player) {
+        return getContainer()
+                .stream()
+                .filter(e -> e.getUniqueId().equals(player.getUniqueId()))
+                .findAny()
+                .orElse(null);
+    }
+
+    public boolean containPlayer(Player player) {
+        return getContainer()
+                .stream()
+                .anyMatch(e -> e.getUniqueId().equals(player.getUniqueId()));
+    }
 
 }

@@ -1,0 +1,8 @@
+name: LotteriaBox
+version: 1.1
+main: com.playernguyen.lotteriabox.LotteriaBox
+commands:
+  lotteriabox:
+    description: The LotteriaBox command plugin
+    usage: /lotteriabox ...
+    aliases: [lbox, lb]
